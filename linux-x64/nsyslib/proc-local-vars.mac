@@ -1,0 +1,59 @@
+;This contains utility macros for cleaner handeling of local
+;function variables. DO NOT TOUCH R15 with these macros
+;it will preserve R15 however..
+; Call it this way
+;func_label:
+; pre-pushes
+; proc_start
+; proc_var name1, 4	; allocates 4 bytes to name1
+; proc_var name2, 32	; allocates 32 bytes to name2
+; proc_var name3, 1 	; allocates 1 bytes to name3
+; proc_endvar 		; marks the end of the variable lists.
+; ..your code.
+; mov [name2],rax
+; proc_end		; resets stack poitner
+; pop all youre pre-pushes
+; ret
+
+
+%ifndef PROC_LOCAL_VARS_MAC
+%define PROC_LOCAL_VARS_MAC
+
+
+%macro proc_start 0
+	%push local_function_scope
+	;setup the stack index counter forthe macros
+	%assign %$var_offset 0 
+%endmacro
+
+; proc_var name,size_of_var
+
+%macro proc_var 2
+	;macro magic time!
+	;updates var_offset to the size of the var request
+	%assign %$var_offset  %$var_offset + %2 
+	;now we define that macro, we can now use that
+	;"name" like a single value.
+	%define %1  r15 - %$var_offset
+%endmacro
+
+%macro proc_endvars 0
+	push r15		; other function could be using r15
+				; for their saved stack poitner too.
+	mov r15,rsp		; save the base stack pointer
+	sub rsp, %$var_offset 	; move stack pointer to avoid 
+				; push/pop/call stack clobbering  issues
+	and rsp, -16		; align stack pointer on 16 byte boundary.
+				; ...just in case we want speed
+%endmacro
+
+%macro proc_end 0
+	mov rsp,r15	;restore stack pointer
+	pop r15		;restore r15 as it likely is being used...
+	%pop		;makes all the defines after the
+			;"push local_function_scope" disappear
+			;so they don't break other parts of the code.
+	
+%endmacro
+
+%endif
