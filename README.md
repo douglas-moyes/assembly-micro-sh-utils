@@ -7,7 +7,9 @@ code written in compact pure assembly for both targets. The plan to include both
 a shell and text editor pretty much made Zig the best option.
 
 
-(the text below wil lbe updated)
+(The text below will be updated later)
+
+
 Why? Am I crazy? Maybe... or maybe just because it's crazy fun.
 
 This is a collection of Unix utilities written in Assembly language --
