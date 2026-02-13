@@ -1,8 +1,8 @@
 ;This exit library should allow the linker to remove unused code
-;NOTE: It actualyl would be more efficent to just use macros
-;than functoin calls, but this is suitable for our test.
+;NOTE: It actually would be more efficient to just use macros
+;than function calls, but this is suitable for our test.
 
-; needed to define these as external functoins/labels
+; needed to define these as external functions/labels
 
 
 ;this a multi-entry point function to save on code space
@@ -35,12 +35,12 @@ exit_1:
 	section .text.exit_1
 	global exit_1	;exits with 1 (false in the shell)
 %endif
-	; Below is the smalles opt code wise, but we'd hit the stack
+	; Below is the smallest opt code wise, but we'd hit the stack
 	; push 1 	;2-byes, but actually pushes 8 zero padded bytes on the stack
 	; pop rax 	; one byte
 	; this is 1 byte loner, but 
 	xor eax,eax	; 2 bytes, nukes the higher 4-bytes on rax
-	inc eax		; 2 bytes, no differnece using mov al,1 or inc eax, so ths is better.
+	inc eax		; 2 bytes, no difference using mov al,1 or inc eax, so this is better.
 	jmp exit
 	 
 %ifndef STATICLIB

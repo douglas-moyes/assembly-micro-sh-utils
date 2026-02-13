@@ -1,4 +1,4 @@
-; True-false test to check differtn resulting binary sizes
+; True-false test to check diffident resulting binary sizes
 
 %ifdef USE_MACROS
 	%include "exit-macro.inc"
@@ -21,11 +21,11 @@ _start:
 	cmp al, 't'
 	mov al,0
 	je .true
-;This would have been more efficent
+;This would have been more efficient
 ;	inc eax
 ;true:
-;	EXIT (macro, or even the fuction call)
-;but then we can't test dead code elimiation
+;	EXIT (macro, or even the function call)
+;but then we can't test dead code elimination
 %ifdef USE_MACROS
 	EXIT_1
 %else
@@ -38,7 +38,7 @@ _start:
 	call exit
 %endif
 
-;Tthis won't be executed, but we're adding more calls
+;This won't be executed, but we're adding more calls
 ;to better show the size difference between these.
 
 %ifdef USE_MACROS
