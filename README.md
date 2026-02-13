@@ -1,4 +1,15 @@
-# assembly-micro-sh-utils
+# nano-busybox (formerly assembly-micro-sh-utils)
+
+So apparenlty I was crazy after taking a look at ARM assembly, X86_64 is
+much cleaner to work with. Instead of re-writing a ton of shell utilities in 
+pure assembly, I will be doing most of the work in Zig, with the library
+code written in compact pure assembly for both targets. The plan to include both
+a shell and text editor pretty much made Zig the best option.
+
+
+(The text below will be updated later)
+
+
 Why? Am I crazy? Maybe... or maybe just because it's crazy fun.
 
 This is a collection of Unix utilities written in Assembly language --
